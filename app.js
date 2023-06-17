@@ -4,15 +4,14 @@ $(document).ready(function(){
 
   $('#add-button').click(function() {addTask();});
 
-  $('#listContainer').on("click","li",function(){
+  $('#listContainer').on("click","p",function(){
       $(this).addClass("checked");
       checkTask($(this).attr('id'));
       taskList();
   });
 
   $('#listContainer').on("click","span",function(){
-    $(this).parent("li").remove();
-    delTask($(this).attr()); 
+    delTask($(this).attr('id').substring(1)); 
     taskList();
   });
 
@@ -24,9 +23,9 @@ $(document).ready(function(){
     $.each(data,function(i,item) {
       let elemento;
       if (item.update) {
-        elemento = "<li id='"+ item.id + "' class='checked'>"+ item.tareas + " <span>\u00d7</span></li>";
+        elemento = "<li class='checked'><p id='"+ item.id + "'>"+ item.tareas + "</p><span id='_"+ item.id + "'>\u00d7</span></li>";
       } else {
-        elemento = "<li id='"+ item.id + "'>"+ item.tareas + " <span>\u00d7</span></li>";
+        elemento = "<li><p id='"+ item.id + "'>"+ item.tareas + "</p><span id='_"+ item.id + "'>\u00d7</span></li>";
       }
       $("#listContainer").append(elemento);
     })
@@ -110,4 +109,5 @@ $(document).ready(function(){
         error:showError
       });
   };
+
 
